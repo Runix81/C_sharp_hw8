@@ -65,22 +65,19 @@ int SumNumbersOfRow(int[,] array, int i)
 
 void ResultOfCompare(int[,] array)
 {
-    int minimumSum = 0;
+    int minimumSum = SumNumbersOfRow(array, 0); 
     int[] arr = new int[array.GetLength(0)];
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        int row = SumNumbersOfRow(array, i);        
-        arr[i] = row;        
-    }   
+        int row = SumNumbersOfRow(array, i);
+        arr[i] = row;
+    }
     for (int i = 0; i < arr.Length; i++)
     {
-       minimumSum = arr[i];
-       if (arr[i] < minimumSum)
-       {
-        minimumSum = arr[i];
-       }
-
-
+        if (arr[i] < minimumSum)
+        {
+            minimumSum = arr[i];
+        }
     }
     System.Console.Write($"{minimumSum}");
 }
