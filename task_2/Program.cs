@@ -1,5 +1,5 @@
-﻿// Задайте двумерный массив. Напишите программу, которая упорядочивает 
-// по убыванию элементы каждой строки двумерного массива.
+﻿//  Задайте прямоугольный двумерный массив. Напишите программу, которая будет
+//  находить строку с наименьшей суммой элементов.
 
 //Метод ввода количества строк и столбцов
 
@@ -49,27 +49,40 @@ void PrintArray(int[,] array)
     }
 }
 
-// Метод упорядочивания значений элементов в строках массива по убыванию.
+// Метод подсчета суммы значений в строках массива.
 
-int[,] ChangeArray(int[,] array)
+int SumNumbersOfRow(int[,] array, int i)
 {
+    int sum = 0;
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+        sum = sum + array[i, j];
+    }
+    return sum;
+}
 
+// Метод сравнивающий значения сумм строк
+
+void ResultOfCompare(int[,] array)
+{
+    int minimumSum = 0;
+    int[] arr = new int[array.GetLength(0)];
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int k = 0; k < array.GetLength(1) - 1; k++)
-            {
-                if (array[i, k] < array[i, k + 1])
-                {
-                    int buff = array[i, k + 1];
-                    array[i, k + 1] = array[i, k];
-                    array[i, k] = buff;
-                }
-            }
-        }
+        int row = SumNumbersOfRow(array, i);        
+        arr[i] = row;        
+    }   
+    for (int i = 0; i < arr.Length; i++)
+    {
+       minimumSum = arr[i];
+       if (arr[i] < minimumSum)
+       {
+        minimumSum = arr[i];
+       }
+
+
     }
-    return array;
+    System.Console.Write($"{minimumSum}");
 }
 
 (int row, int col) = InputSizeArray("Введите количество строк", "Введите количество столбцов");
@@ -77,4 +90,4 @@ int[,] array = AddArray(row, col);
 FillArray(array);
 PrintArray(array);
 System.Console.WriteLine();
-PrintArray(ChangeArray(array));
+ResultOfCompare(array);
